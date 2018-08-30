@@ -1,2 +1,2 @@
 # SceneKit-Quaternion-Rotations
-Illustrates rotaion in SceneKit using quaternions or simlated physics.
+Illustrates sphere rotaion in SceneKit using quaternions or simulated physics for inertial rotation.
