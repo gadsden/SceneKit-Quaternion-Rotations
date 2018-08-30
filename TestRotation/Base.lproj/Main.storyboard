@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.13.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.9"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Game View Controller-->
+        <scene sceneID="tXr-a1-R10">
+            <objects>
+                <viewController id="BV1-FR-VrT" customClass="GameViewController" customModule="TestRotation" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ovf-vJ-eJU">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mz3-tm-K3f">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            </sceneKitView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="1Xy-o7-zZi">
+                                <rect key="frame" x="131" y="627" width="113" height="29"/>
+                                <segments>
+                                    <segment title="Simple"/>
+                                    <segment title="Inertial"/>
+                                </segments>
+                                <color key="tintColor" red="1" green="0.83234566450000003" blue="0.47320586440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </segmentedControl>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="1Xy-o7-zZi" firstAttribute="centerX" secondItem="Ovf-vJ-eJU" secondAttribute="centerX" id="9o2-tM-8UZ"/>
+                            <constraint firstItem="F5e-Vw-iKp" firstAttribute="bottom" secondItem="mz3-tm-K3f" secondAttribute="bottom" id="MfT-MY-hkR"/>
+                            <constraint firstItem="mz3-tm-K3f" firstAttribute="top" secondItem="F5e-Vw-iKp" secondAttribute="top" id="Pu7-Ic-Ex6"/>
+                            <constraint firstItem="F5e-Vw-iKp" firstAttribute="trailing" secondItem="mz3-tm-K3f" secondAttribute="trailing" id="Rzh-pM-BgV"/>
+                            <constraint firstItem="F5e-Vw-iKp" firstAttribute="bottom" secondItem="1Xy-o7-zZi" secondAttribute="bottom" constant="12" id="UMq-dT-H0b"/>
+                            <constraint firstItem="mz3-tm-K3f" firstAttribute="leading" secondItem="F5e-Vw-iKp" secondAttribute="leading" id="mVq-LR-gos"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="F5e-Vw-iKp"/>
+                    </view>
+                    <connections>
+                        <outlet property="modeSelector" destination="1Xy-o7-zZi" id="oUO-n8-vH4"/>
+                        <outlet property="scnView" destination="mz3-tm-K3f" id="kiy-aJ-BnA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+</document>
