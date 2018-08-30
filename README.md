@@ -1,2 +1,2 @@
 # SceneKit-Quaternion-Rotations
-Rotate SceneKit nodes using quaternions 
+Illustrates rotaion in SceneKit using quaternions or simlated physics.
