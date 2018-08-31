@@ -21,7 +21,7 @@ node.simdOrientation = newRotation * node.simdOrientation
 
 How do we obtain newRotation from pan gesture?
 
-We will need to figure out what the axis and angle of our roatation are so
+We will need to figure out what the axis and angle of our rotation are so
 that we can call:
 ```swift
 let newRotation: simd_quatf = simd_quatf(angle: Float, axis: float3)
@@ -44,7 +44,6 @@ if let hit = hitResults.first{
     ...
 }
 ```
-
 We need a vector from the point we want to rotate about to the point on the surface.
 If we are rotating sphere about it's origin, our pivot is at simd_float(0, 0, 0)
 (center of the sphere in it's local coordinates).
@@ -57,7 +56,7 @@ In recognizer state .began we calculate touch and save it as a start vector.
 Then at each .changed state we calculate touch again and
 use the new touch as end vector.
  
-We can get the axis as a cross produt of these vectors:
+We can get the axis as a cross product of these vectors:
 ```swift
 let axis = simd_cross(end, start)
 ```
