@@ -78,9 +78,10 @@ the axis is a unit vector:
 let newRotation: simd_quatf = simd_quatf(angle: angle, axis: simd_normalize(axis))
 ```
 Now we can rotate our node:
+```swift
 //start touch from prevous example
 node.simdOrientation = newRotation * node.simdOrientation
-
+```
 Finally, we update start vector to the new touch:
 ```swift
 start = touch
