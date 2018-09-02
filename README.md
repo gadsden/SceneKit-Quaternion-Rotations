@@ -1,11 +1,11 @@
 # SceneKit-Quaternion-Rotations
 
 ## ABOUT
-Illustrates pan gesture rotaions in SceneKit using quaternions and simulated physics for inertial rotation.
+Illustrates pan gesture rotations in SceneKit using quaternions and simulated physics.
 
 ![Output sample](https://j.gifs.com/l53G3J.gif)
 
-## Simple Rotations
+## Simple Rotations 
 
 SCNNode includes animatable property simdOrientation: simd_quatf
 The node’s orientation, expressed as a rotation angle about an axis.
