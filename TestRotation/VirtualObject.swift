@@ -156,15 +156,17 @@ extension SCNNode{
         
         let nodeCenterWorld = self.simdConvertPosition(self.simdPosition, to: nil)
         let forceVector = endLocation - startLocation
-        let pivotVector = startLocation - nodeCenterWorld
-        let rotationAxis = simd_cross(pivotVector, forceVector)
+        let leverArmVector = startLocation - nodeCenterWorld
+        let rotationAxis = simd_cross(leverArmVector, forceVector)
         let magnitude = simd_length(rotationAxis)
+        // torqueAxis is a unit vector
         var torqueAxis = simd_normalize(rotationAxis)
         if simd_length(torqueAxis).isNaN {
             return
         }
         
         let orientationQuaternion = self.presentation.simdOrientation
+        // align torque axis with current orientation
         torqueAxis = orientationQuaternion.act(torqueAxis)
         let torque = SCNVector4(torqueAxis.x, torqueAxis.y, torqueAxis.z, magnitude)
         //print("torque \(torque)")

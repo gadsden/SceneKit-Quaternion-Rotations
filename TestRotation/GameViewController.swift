@@ -62,6 +62,7 @@ class GameViewController: UIViewController {
         
         // create a sphere that we are going to rotate
         let radius = Float(0.1524) //6 inches
+        let mass = Float(0.8) // 0.8 kg
         
         sphere.geometry = SCNSphere(radius: CGFloat(radius))
         sphere.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "world")
@@ -69,7 +70,7 @@ class GameViewController: UIViewController {
         sphere.geometry?.firstMaterial?.metalness.contents = 0.5
         
         // hollow sphere with 0.8kg and 12 inches diameter
-        sphere.simplePhysicsBody = SimplePhysicsBody(mass: 0.8, radius: radius)
+        sphere.simplePhysicsBody = SimplePhysicsBody(mass: mass, radius: radius)
         ///
         //sphere.addChildNode(Axis())
         //sphere.opacity = 0.3
@@ -79,9 +80,7 @@ class GameViewController: UIViewController {
         let physicsBody = SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(node: sphere, options: [:]))
         physicsBody.isAffectedByGravity = false
         sphereAnchor.physicsBody = physicsBody
-        //sphere.physicsBody = SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(geometry: sphere.geometry!, options: nil))
-        sphere.physicsBody?.mass = 0.8
-        
+        sphere.physicsBody?.mass = CGFloat(mass)
         
         sphereAnchor.addChildNode(sphere)
         scene.rootNode.addChildNode(sphereAnchor)

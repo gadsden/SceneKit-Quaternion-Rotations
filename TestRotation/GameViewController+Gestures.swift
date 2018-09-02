@@ -57,12 +57,9 @@ extension GameViewController{
                             let newWorldPosition = hit.node.simdConvertPosition(localTouch, to: nil)
                             
                             self.touchedObject?.previousTouch = localTouch
-                            
                             self.sphereAnchor.applyTorque(startLocation: oldWorldPosition, endLocation: newWorldPosition)
                             
                             break
-                            default:
-                                break
                         }
                     }
                 }
