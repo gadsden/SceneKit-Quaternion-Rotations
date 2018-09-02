@@ -177,6 +177,9 @@ sphere.simdOrientation = rotationQuaternion * sphere.presentation.simdOrientatio
 
 ### Version 1.0
 
+### Version 2.0
+added torque for SCNPhysicsBody
+
 
 
 
