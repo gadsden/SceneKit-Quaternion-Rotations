@@ -3,6 +3,7 @@
 ## ABOUT
 Illustrates pan gesture rotaions in SceneKit using quaternions and simulated physics for inertial rotation.
 
+![Output sample](https://j.gifs.com/l53G3J.gif)
 
 ## Simple Rotations
 
