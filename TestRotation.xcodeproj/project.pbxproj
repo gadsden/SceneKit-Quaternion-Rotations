@@ -16,6 +16,7 @@
 		16320727212F7BE800FE427C /* GameViewController+Gestures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16320726212F7BE800FE427C /* GameViewController+Gestures.swift */; };
 		163207302132028000FE427C /* VirtualObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1632072F2132028000FE427C /* VirtualObject.swift */; };
 		16320732213753D800FE427C /* GameViewController+SCNSceneRendererDelegate .swift in Sources */ = {isa = PBXBuildFile; fileRef = 16320731213753D800FE427C /* GameViewController+SCNSceneRendererDelegate .swift */; };
+		1632073621384EA200FE427C /* Axis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1632073521384EA100FE427C /* Axis.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		16320726212F7BE800FE427C /* GameViewController+Gestures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameViewController+Gestures.swift"; sourceTree = "<group>"; };
 		1632072F2132028000FE427C /* VirtualObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualObject.swift; sourceTree = "<group>"; };
 		16320731213753D800FE427C /* GameViewController+SCNSceneRendererDelegate .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameViewController+SCNSceneRendererDelegate .swift"; sourceTree = "<group>"; };
+		1632073521384EA100FE427C /* Axis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Axis.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 				16320731213753D800FE427C /* GameViewController+SCNSceneRendererDelegate .swift */,
 				16320726212F7BE800FE427C /* GameViewController+Gestures.swift */,
 				1632072F2132028000FE427C /* VirtualObject.swift */,
+				1632073521384EA100FE427C /* Axis.swift */,
 				1632070B212B500800FE427C /* Main.storyboard */,
 				1632070E212B500A00FE427C /* Assets.xcassets */,
 				16320710212B500A00FE427C /* LaunchScreen.storyboard */,
@@ -152,6 +155,7 @@
 				16320732213753D800FE427C /* GameViewController+SCNSceneRendererDelegate .swift in Sources */,
 				1632070A212B500800FE427C /* GameViewController.swift in Sources */,
 				16320727212F7BE800FE427C /* GameViewController+Gestures.swift in Sources */,
+				1632073621384EA200FE427C /* Axis.swift in Sources */,
 				16320706212B500800FE427C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -229,7 +233,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -284,7 +288,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

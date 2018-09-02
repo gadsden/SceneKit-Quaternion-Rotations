@@ -44,7 +44,7 @@ class GameViewController: UIViewController {
         scene.rootNode.addChildNode(cameraNode)
         
         // place the camera
-        cameraNode.position = SCNVector3(x: 0, y: 0, z: 5)
+        cameraNode.position = SCNVector3(x: 0, y: 0, z: 2)
         
         // create and add a light to the scene
         let lightNode = SCNNode()
@@ -61,13 +61,27 @@ class GameViewController: UIViewController {
         scene.rootNode.addChildNode(ambientLightNode)
         
         // create a sphere that we are going to rotate
-        sphere.geometry = SCNSphere(radius: 1)
+        let radius = Float(0.1524) //6 inches
+        
+        sphere.geometry = SCNSphere(radius: CGFloat(radius))
         sphere.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "world")
         sphere.geometry?.firstMaterial?.lightingModel = .physicallyBased
         sphere.geometry?.firstMaterial?.metalness.contents = 0.5
         
-        // hollow sphere with 0.0kg and 12 inches diameter
-        sphere.simplePhysicsBody = SimplePhysicsBody(mass: 0.8, radius: 0.1524)
+        // hollow sphere with 0.8kg and 12 inches diameter
+        sphere.simplePhysicsBody = SimplePhysicsBody(mass: 0.8, radius: radius)
+        ///
+        //sphere.addChildNode(Axis())
+        //sphere.opacity = 0.3
+        
+        ///
+        // add Apple physicsBody for comparison
+        let physicsBody = SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(node: sphere, options: [:]))
+        physicsBody.isAffectedByGravity = false
+        sphereAnchor.physicsBody = physicsBody
+        //sphere.physicsBody = SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(geometry: sphere.geometry!, options: nil))
+        sphere.physicsBody?.mass = 0.8
+        
         
         sphereAnchor.addChildNode(sphere)
         scene.rootNode.addChildNode(sphereAnchor)
@@ -84,6 +98,10 @@ class GameViewController: UIViewController {
         
         // show statistics such as fps and timing information
         scnView.showsStatistics = true
+        
+        scnView.debugOptions = [
+            //.showPhysicsShapes,
+        ]
         
         // configure the view
         scnView.backgroundColor = UIColor.black
@@ -120,6 +138,19 @@ class GameViewController: UIViewController {
         self.mode = RotationMode(rawValue: sender.selectedSegmentIndex) ?? .quaternion
         self.clear()
         self.touchedObject?.simplePhysicsBody?.angularVelocity = simd_float3()
+        
+        if self.mode == .inertialApplePhysics{
+            sphereAnchor.physicsBody?.resetTransform()
+        }else{
+            // we applied torque to sphereAnchor, so reset it
+            // and rotate the sphere to compensate
+            updateQueue.async {
+                self.sphereAnchor.physicsBody?.clearAllForces()
+                let anchorOrientation = self.sphereAnchor.presentation.simdOrientation
+                self.sphereAnchor.simdOrientation = simd_quatf()
+                self.sphere.simdOrientation = anchorOrientation *  self.sphere.simdOrientation
+            }
+        }
     }
 }
 

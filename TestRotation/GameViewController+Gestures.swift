@@ -16,38 +16,53 @@ extension GameViewController{
         let p = recognizer.location(in: scnView)
         let hitResults = scnView.hitTest(p, options: [:])
         // check that we clicked on at least one object
-        if hitResults.count > 0 {
+        if let hit = hitResults.first, hit.node == sphere {
             // retrieved the first clicked object
-            let result = hitResults[0]
-            var newTouch = simd_float3()
-            let worldTouch = simd_float3(result.worldCoordinates)
-            if result.node == sphere{
-                touchedObject = sphere
-            }
-            
-            if touchedObject == sphere{
-                newTouch = sphereAnchor.simdConvertPosition(worldTouch, from: nil)
-            }
-            
+            touchedObject = sphere
+            let worldTouch = simd_float3(hit.worldCoordinates)
+            let localTouch = simd_float3(hit.localCoordinates)
+        
             switch recognizer.state{
             case .began:
                 updateQueue.async {
-                    self.touchedObject?.previousTouch = simd_normalize(newTouch)
+                    switch self.mode{
+                    case .inertialApplePhysics:
+                        self.touchedObject?.previousTouch = localTouch
+                    default:
+                        self.touchedObject?.previousTouch = worldTouch
+                    }
                 }
                 
             case .changed:
                 updateQueue.async {
                     if let touchedObject = self.touchedObject,
-                        let previousTouch = touchedObject.previousTouch{
-                        let currentTouch = simd_normalize(newTouch)
+                        var previousTouch = touchedObject.previousTouch{
+                        
                         switch self.mode{
                         case .quaternion  :
+                            let currentTouch = self.sphereAnchor.simdConvertPosition(worldTouch, from: nil)
+                            previousTouch =  self.sphereAnchor.simdConvertPosition(previousTouch, from: nil)
+
                             self.touchedObject?.rotate(from: previousTouch, to: currentTouch)
+                            self.touchedObject?.previousTouch = worldTouch
                         case .inertialHomegrown:
+                            let currentTouch = self.sphereAnchor.simdConvertPosition(worldTouch, from: nil)
+                            previousTouch =  self.sphereAnchor.simdConvertPosition(previousTouch, from: nil)
+                        
                             self.touchedObject?.applyTorque(from:
                                 previousTouch, to: currentTouch)
-                        default:
+                            self.touchedObject?.previousTouch = worldTouch
+                        case .inertialApplePhysics:
+                            let oldWorldPosition = hit.node.simdConvertPosition(previousTouch, to: nil)
+                            let newWorldPosition = hit.node.simdConvertPosition(localTouch, to: nil)
+                            
+                            self.touchedObject?.previousTouch = localTouch
+                            
+                            self.sphereAnchor.applyTorque(startLocation: oldWorldPosition, endLocation: newWorldPosition)
+                            
                             break
+                            default:
+                                break
                         }
                     }
                 }

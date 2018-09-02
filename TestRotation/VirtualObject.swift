@@ -25,8 +25,10 @@ class VirtualObject: SCNNode{
     }
     
     func applyTorque(from previousTouch: simd_float3, to currentTouch: simd_float3){
+        let previousTouch = simd_normalize(previousTouch)
+        let currentTouch = simd_normalize(currentTouch)
         self.simplePhysicsBody?.applyTorque(from: previousTouch, to: currentTouch)
-        self.previousTouch = currentTouch
+        //self.previousTouch = currentTouch
     }
     
     /// calculates and applies quaternion rotation between two vectors
@@ -34,6 +36,8 @@ class VirtualObject: SCNNode{
     /// - parameter currentTouch: normalized curent touch
     func rotate(from previousTouch: simd_float3, to currentTouch: simd_float3){
         //print("changed \(previousTouch) \(currentTouch)")
+        let previousTouch = simd_normalize(previousTouch)
+        let currentTouch = simd_normalize(currentTouch)
         //make sure to normalize axis to make unit quaternion
         let axis = simd_normalize(simd_cross(currentTouch, previousTouch))
         
@@ -51,7 +55,7 @@ class VirtualObject: SCNNode{
             self.simdOrientation = rotation * self.simdOrientation
             SCNTransaction.commit()
         }
-        self.previousTouch = currentTouch
+        //self.previousTouch = currentTouch
     }
 }
 
@@ -85,8 +89,8 @@ struct SimplePhysicsBody{
     func torque(from previousTouch: simd_float3, to currentTouch: simd_float3)->simd_float3?{
         
         let forceVector = currentTouch - previousTouch
-        let pivotVector = previousTouch
-        let rotationAxis = simd_cross(pivotVector, forceVector)
+        let leverArmVector = previousTouch
+        let rotationAxis = simd_cross(leverArmVector, forceVector)
         if !simd_length(simd_normalize(rotationAxis)).isNaN{
             return rotationAxis
         }
@@ -140,5 +144,30 @@ struct SimplePhysicsBody{
         // update time and simplePhysicsBody
         self.lastUpdated = time
         return rotationQuaternion
+    }
+}
+
+extension SCNNode{
+    // the Apple way
+    func applyTorque(startLocation: simd_float3, endLocation: simd_float3){
+        guard let physicsBody = self.physicsBody else{
+            return
+        }
+        
+        let nodeCenterWorld = self.simdConvertPosition(self.simdPosition, to: nil)
+        let forceVector = endLocation - startLocation
+        let pivotVector = startLocation - nodeCenterWorld
+        let rotationAxis = simd_cross(pivotVector, forceVector)
+        let magnitude = simd_length(rotationAxis)
+        var torqueAxis = simd_normalize(rotationAxis)
+        if simd_length(torqueAxis).isNaN {
+            return
+        }
+        
+        let orientationQuaternion = self.presentation.simdOrientation
+        torqueAxis = orientationQuaternion.act(torqueAxis)
+        let torque = SCNVector4(torqueAxis.x, torqueAxis.y, torqueAxis.z, magnitude)
+        //print("torque \(torque)")
+        physicsBody.applyTorque(torque, asImpulse: true)
     }
 }
