@@ -12,10 +12,10 @@ The node’s orientation, expressed as a rotation angle about an axis.
 
 simd_quatf is a simd_float4 vector where first 3 components x, y, z represent the axis of rotation, and 
 the last one an angle of rotation in radians.
-There is a convenent initializer to create simd_quatf(angle: Float, axis: float3).
+There is a convenient initializer to create simd_quatf(angle: Float, axis: float3).
 
 Quaternions can be used to represent any rotation as an angle and an axis. 
-A unit quaternion is a quaternin with the norm of 1.
+A unit quaternion is a quaternion with the norm of 1.
 If we could convert the motion of a finger on screen to a unit quaternion (call it newRotation), we could easily rotate 
 a node by multiplying newRotation * simdOrientation, and assigning this value back to it's simdOrientation:
 ```swift
@@ -37,7 +37,7 @@ What we will need is two vectors representing the start and end of the gesture:
 A vector from the center of the sphere to a point on it's surface where we first touched the finger (start: sim_float3),
 and another one from it's center to the point on it's surface where gesture ended (end: simd_float3).
 
-In the pan gesture recognizer, get world cordinates of the point where finger touched the sphere:
+In the pan gesture recognizer, get world coordinates of the point where finger touched the sphere:
 
 ```swift
 let scnView = recognizer.view as! SCNView
@@ -105,7 +105,8 @@ We can calculate angular acceleration (in radians per second) from torque:
 ```swift
 let angularAcceleration = torque / momentOfInertia
 ```
-Moment of inertia is a tensor, experessed as a 3x3 matrix, but fortunately for the hollow sphere it's a scalar:
+Moment of inertia is a tensor, experessed as a 3x3 matrix, but fortunately for the hollow sphere it's a scalar
+(3 component vector multiplied by 3x3 maatrix is a 3 component vector, just as if we multiplied it by a scalar):
 ```swift
 let momentOfInertia = 2 * mass * pow(radius, 2))/3
 ```
@@ -129,8 +130,8 @@ struct SimplePhysicsBody{
     var lastUpdated: TimeInterval?
 }
 ```
-As finger moves over the sphere we use pan gesture recognzer to calculate end and start vector
-like in the prevous example, then calculate torque and angularAcceleration.
+As finger moves over the sphere we use pan gesture recognizer to calculate end and start vector
+like in the previous example, then calculate torque and angularAcceleration.
 Then save angularAcceleration in sphere's SimplePhysicsBody.
 
 SCNSceneRendererDelegate contains 
@@ -153,7 +154,7 @@ var ω = self.angularVelocity
 // update angular velocity
 ω += self.angularAcceleration * timeInterval
 ```
-Now all that's left is to calculate how much was the shpere supposed to rotate 
+Now all that's left is to calculate how much was the sphere supposed to rotate 
 during the time interval. It can be expressed as a unit quaternion with
 axis parallel to the axis of angular velocity vector, and angle a fraction of this vector's magnitude
 during the time interval:
