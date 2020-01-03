@@ -106,7 +106,7 @@ We can calculate angular acceleration (in radians per second) from torque:
 let angularAcceleration = torque / momentOfInertia
 ```
 Moment of inertia is a tensor, experessed as a 3x3 matrix, but fortunately for the hollow sphere it's a scalar
-(3 component vector multiplied by 3x3 maatrix is a 3 component vector, just as if we multiplied it by a scalar):
+(3 component vector multiplied by 3x3 matrix is a 3 component vector, just as if we multiplied it by a scalar):
 ```swift
 let momentOfInertia = 2 * mass * pow(radius, 2))/3
 ```
